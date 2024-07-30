@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { addNotes } from "@/lib/api/noteApi";
 
 export default function Page() {
     const [text, setText] = useState<string>('');
@@ -39,7 +40,7 @@ export default function Page() {
             setMessage('空のファイルです');
             return;
         }
-        console.log(text);
+        addNotes(text);
         setMessage('アップロードしました');
     }
 
