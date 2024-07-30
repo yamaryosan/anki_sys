@@ -7,9 +7,15 @@ import { useEffect, useState } from "react";
 type note = {
     noteId: string;
     fields: {
-        表面: string;
-        裏面: string;
-    }
+        表面: {
+            value: string;
+            order: number;
+        }
+        裏面: {
+            value: string;
+            order: number;
+        }
+    }   
 }
 
 export default function Page() {
@@ -49,21 +55,22 @@ export default function Page() {
 
     return (
         <div>
-            <h1>テスト</h1>
+            <h2>ノート一覧</h2>
             {/* デッキ選択 */}
-            <select name="decks" id="decks" onChange={handleChange}>
+            <select name="decks" id="decks" onChange={handleChange} className="p-2 border">
                 {decks.map((deck, index) => (
                     <option key={index} value={deck}>{deck}</option>
                 ))}
             </select>
-            <h2>ノート一覧</h2>
             {notes.length === 0 ? (
                 <div>ノートがありません</div>
             ) : (
-                <div>
-                    {notes.map((note) => (
-                        <div key={note.noteId}>
-                            <div>{note.noteId}</div>
+                <div className="p-2 border-t">
+                    {notes.map((note, index) => (
+                        <div key={note.noteId} className="p-4 border-b">
+                            <p>{index + 1}</p>
+                            <p className="font-bold">{note.fields.表面.value}</p>
+                            <p className="text-sm">{note.fields.裏面.value}</p>
                         </div>
                     ))}
                 </div>
