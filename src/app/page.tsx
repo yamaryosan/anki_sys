@@ -7,9 +7,15 @@ import { useEffect, useState } from "react";
 type note = {
     noteId: string;
     fields: {
-        表面: string;
-        裏面: string;
-    }
+        表面: {
+            value: string;
+            order: number;
+        }
+        裏面: {
+            value: string;
+            order: number;
+        }
+    }   
 }
 
 export default function Page() {
@@ -63,7 +69,8 @@ export default function Page() {
                 <div>
                     {notes.map((note) => (
                         <div key={note.noteId}>
-                            <div>{note.noteId}</div>
+                            <p>{note.fields.表面.value}</p>
+                            <p>{note.fields.裏面.value}</p>
                         </div>
                     ))}
                 </div>
