@@ -1,8 +1,9 @@
 'use client';
 
 import { getDecks } from "@/lib/api/deckApi";
-import getNotes from "@/lib/api/noteApi";
+import { getNotes } from "@/lib/api/noteApi";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 type note = {
     noteId: string;
@@ -56,12 +57,15 @@ export default function Page() {
     return (
         <div>
             <h2>ノート一覧</h2>
+            <Link href="/upload">アップロード</Link>
             {/* デッキ選択 */}
-            <select name="decks" id="decks" onChange={handleChange} className="p-2 border">
-                {decks.map((deck, index) => (
-                    <option key={index} value={deck}>{deck}</option>
-                ))}
-            </select>
+            <div className="p-2 border-t">
+                <select name="decks" id="decks" onChange={handleChange} className="p-2 border">
+                    {decks.map((deck, index) => (
+                        <option key={index} value={deck}>{deck}</option>
+                    ))}
+                </select>
+            </div>
             {notes.length === 0 ? (
                 <div>ノートがありません</div>
             ) : (

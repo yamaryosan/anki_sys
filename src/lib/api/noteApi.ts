@@ -95,9 +95,17 @@ async function getNotesInfo(noteIds: string[]): Promise<note[]> {
  * @param deck デッキ名
  * @returns ノート情報
  */
-export default async function getNotes(deck: string): Promise<note[]> {
+export async function getNotes(deck: string): Promise<note[]> {
     const noteIds = await getNoteIDs(deck);
     const notes = await getNotesInfo(noteIds);
     console.log(notes);
     return notes as note[];
+}
+
+/**
+ * テキストを受け取りデッキに追加
+ * @param text テキスト
+ */
+export async function addNotes(text: string): Promise<void> {
+    console.log(text);
 }
