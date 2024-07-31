@@ -103,9 +103,69 @@ export async function getNotes(deck: string): Promise<note[]> {
 }
 
 /**
+ * テキストデータを整形し、ノートデータに変換
+ * 例: "Q:~~~\nA:~~~\n\n" -> [{noteId: "0", fields: {表面: {value: "~~~", order: 0}, 裏面: {value: "~~~", order: 1}}}]
+ */
+async function formatText(text: string): Promise<note[]> {
+    const notes = text.split('\n\n').map((note, index) => {
+        const [front, back] = note.split('\n');
+        return {
+            noteId: index.toString(),
+            fields: {
+                表面: {
+                    value: front.slice(2),
+                    order: 0,
+                },
+                裏面: {
+                    value: back.slice(2),
+                    order: 1,
+                }
+            }
+        }
+    });
+    return notes as note[];
+}
+
+/**
  * テキストを受け取りデッキに追加
  * @param text テキスト
+ * @param deckName デッキ名
  */
-export async function addNotes(text: string): Promise<void> {
-    console.log(text);
+export async function addNotes(text: string, deckName: string): Promise<void> {
+    try {
+        const notes = await formatText(text);
+        const action = "addNotes";
+        const modelName = "基本";
+        const version = 6;
+        const addedNotes = notes.map((note) => {
+            return {
+                deckName,
+                modelName,
+                fields: {
+                    表面: note.fields.表面.value,
+                    裏面: note.fields.裏面.value,
+                }
+            }
+        });
+        const params = {
+            "notes": addedNotes,
+        }
+        console.log(params);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({action, version, params}),
+        });
+        const data = await response.json();
+        if (data.error !== null) {
+            throw new Error("ノートの追加に失敗しました");
+        }
+        return data;
+    }
+    catch (error) {
+        console.error(error);
+    }
 }
