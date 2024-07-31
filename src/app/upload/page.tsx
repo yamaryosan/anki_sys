@@ -40,7 +40,7 @@ export default function Page() {
             setMessage('空のファイルです');
             return;
         }
-        addNotes(text);
+        addNotes(text, 'デフォルト');
         setMessage('アップロードしました');
     }
 
