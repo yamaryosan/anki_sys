@@ -59,7 +59,7 @@ export default function Page() {
             <h2>ノート一覧</h2>
             <Link href="/upload">アップロード</Link>
             {/* デッキ選択 */}
-            <div className="p-2 border-t">
+            <div className="p-2 border-t text-blue-600">
                 <select name="decks" id="decks" onChange={handleChange} className="p-2 border">
                     {decks.map((deck, index) => (
                         <option key={index} value={deck}>{deck}</option>
