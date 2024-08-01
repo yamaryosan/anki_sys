@@ -49,8 +49,8 @@ export default function Page() {
         <div>
             <h2>ノート追加</h2>
             <p>{message}</p>
-            <button onClick={textfileHandler}>テキストファイルを選択</button>
-            <button onClick={handleDialog} disabled={show || !isFileSelected}>アップロード</button>
+            <button onClick={textfileHandler} className="p-2 border mt-2 bg-white text-gray-600">ファイル選択</button>
+            <button onClick={handleDialog} disabled={show || !isFileSelected} className="p-2 border enabled:border-red-600 mt-2 ml-2 bg-gray-200 text-gray-600 disabled:text-gray-400 disabled:bg-gray-600">アップロード</button>
             <div id="modal"></div>
             {show && isFileSelected && createPortal(
                 <UploadModal 

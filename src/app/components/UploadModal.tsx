@@ -40,12 +40,11 @@ export default function UploadModal({decks, onDecksChange, selectedDeck, onSelec
     }
 
     return (
-        <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center">
+        <div className="fixed top-0 left-0 w-full h-full bg-opacity-50 flex justify-center items-center">
             <button className="top-0 right-0 p-2" onClick={handleDialog}>閉じる</button>
             {/* デッキ選択 */}
-            <p>デッキ選択</p>
-            <div className="p-2 border-t">
-                <select name="decks" id="decks" onChange={handleChange} className="p-2 border">
+            <div className="p-2">
+                <select name="decks" id="decks" onChange={handleChange} className="p-2 border text-blue-600">
                     {decks.map((deck, index) => (
                         <option key={index} value={deck}>{deck}</option>
                     ))}
